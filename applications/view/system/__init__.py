@@ -13,6 +13,9 @@ from applications.view.system.role import bp as role_bp
 from applications.view.system.user import bp as user_bp
 from applications.view.system.dept import bp as dept_bp
 
+from applications.models.console import data_blueprint
+from applications.models.wx import wx_blueprint
+
 # 创建sys
 system_bp = Blueprint('system', __name__, url_prefix='/system')
 
@@ -32,3 +35,5 @@ def register_system_bps(app: Flask):
     system_bp.register_blueprint(dept_bp)
     app.register_blueprint(index_bp)
     app.register_blueprint(system_bp)
+    app.register_blueprint(data_blueprint)
+    app.register_blueprint(wx_blueprint)

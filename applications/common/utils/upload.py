@@ -21,12 +21,17 @@ def upload_one(photo, mime):
     # file_url = photos.url(filename)
     upload_url = current_app.config.get("UPLOADED_PHOTOS_DEST")
     size = os.path.getsize(upload_url + '/' + filename)
-    photo = Photo(name=filename, href=file_url, mime=mime, size=size)
+    photo = Photo(name=filename, href=file_url,mime=mime,size=size)
+    
     db.session.add(photo)
     db.session.commit()
     return file_url
-
-
+"""def get_remark_from_request():
+    # 从表单数据中获取备注字段的值
+    remark = request.form.get('remark')
+    # 可以进行进一步的处理，例如验证、清理等操作
+    return remark
+"""
 def delete_photo_by_id(_id):
     photo_name = Photo.query.filter_by(id=_id).first().name
     photo = Photo.query.filter_by(id=_id).delete()

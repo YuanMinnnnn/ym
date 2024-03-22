@@ -2,7 +2,7 @@
 <html>
 	<head>
 		{% include 'system/common/header.html' %}
-		<title> Pear Admin Flask </title>
+		<title> 基于Flask框架的健康数据管理平台的设计与实现 </title>
         <link rel="stylesheet" href="{{ url_for('static', filename='system/admin/css/loader.css') }}"/>
         <link rel="stylesheet" href="{{ url_for('static', filename='system/admin/css/admin.css') }}"/>
 	</head>
@@ -30,7 +30,6 @@
 				<ul class="layui-nav layui-layout-right">
 					<li class="layui-nav-item layui-hide-xs"><a href="#" class="menuSearch layui-icon layui-icon-search"></a></li>
 					<li class="layui-nav-item layui-hide-xs"><a href="#" class="fullScreen layui-icon layui-icon-screen-full"></a></li>
-					<li class="layui-nav-item layui-hide-xs"><a href="http://www.pearadmin.com" class="layui-icon layui-icon-website"></a></li>
 					<li class="layui-nav-item layui-hide-xs message"></li>
 					<li class="layui-nav-item user">
 						<!-- 头 像 -->
@@ -52,7 +51,7 @@
 					<!-- 图 标 -->
 					<img class="logo">
 					<!-- 标 题 -->
-					<span class="title"></span>
+					<span>Health MS</span>
 				</div>
 				<!-- 菜 单 内 容 -->
 				<div class="layui-side-scroll">
@@ -63,17 +62,6 @@
 			<div class="layui-body">
 				<!-- 内 容 页 面 -->
 				<div id="content"></div>
-			</div>
-			<!-- 页脚 -->
-			<div class="layui-footer layui-text">
-				<span class="left">
-					<span>
-						官网：<a href="http://www.pearadmin.com/team.html" target="_blank">www.pearadmin.com</a>&nbsp;&nbsp;&nbsp;
-						仓库：<a href="https://gitee.com/pear-admin/Pear-Admin-Layui" target="_blank">gitee.com/pear-admin</a>
-					</span>
-				</span>
-				<span class="center"></span>
-				<span class="right"></span>
 			</div>
 			<!-- 遮 盖 层 -->
 			<div class="pear-cover"></div>
@@ -104,23 +92,23 @@
 				
 				// 登出逻辑 
                 admin.logout(function () {
-                    let loading = layer.load()
+                    let loading = layer.load();
                     $.ajax({
-                      url: '{{ url_for('system.passport.logout') }}',
-                      dataType: 'json',
-                        async: false,
-                      type: 'post',
-                      success: function (result) {
-                        layer.close(loading)
+						url: '{{ url_for('system.passport.logout') }}',
+                    	dataType: 'json',
+                    	async: false,
+                      	type: 'post',
+                      	success: function (result) {
+                        layer.close(loading);
                         if (result.success) {
                           popup.success(result.msg, function () {
                             location.href = '/'
-                          })
-                          return true
+                          });
+                          return true;
                         }
                       }
-                    })
-                })
+                    });
+                });
 				
 				// 自定义消息点击回调
 				admin.message(function(id, title, context, form) {});

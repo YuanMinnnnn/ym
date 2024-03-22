@@ -35,20 +35,25 @@ def upload():
 
 
 #   上传接口
+# 上传接口
 @bp.post('/upload')
 @authorize("system:file:add", log=True)
 def upload_api():
     if 'file' in request.files:
         photo = request.files['file']
         mime = request.files['file'].content_type
+        #remark = get_remark_from_request()  # 调用处理备注的函数获取备注字段的值
+       
+        
+        file_url = upload_curd.upload_one(photo=photo, mime=mime)  # 将备注字段传递给上传函数
+        """remark1=remark"""
 
-        file_url = upload_curd.upload_one(photo=photo, mime=mime)
         res = {
             "msg": "上传成功",
-            "code": 0,
             "success": True,
-            "data":
-                {"src": file_url}
+            "data": {
+                "src": file_url
+            }
         }
         return jsonify(res)
     return fail_api()

@@ -151,4 +151,4 @@ def menu():
 @bp.get('/welcome')
 @login_required
 def welcome():
-    return render_template('system/console/console.html')
+    return render_template('system/console.html')
