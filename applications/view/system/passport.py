@@ -1,3 +1,4 @@
+import request
 from flask import Blueprint, session, redirect, url_for, render_template, request
 from flask_login import current_user, login_user, login_required, logout_user
 
@@ -29,23 +30,24 @@ def login():
 
 # 登录
 @bp.post('/login')
+@bp.post('/m/login')
 def login_post():
     req = request.form
     username = req.get('username')
     password = req.get('password')
-    code = req.get('captcha').__str__().lower()
+    path = request.path
+    if not path.end_with('/m/login')
+        code = req.get('captcha').__str__().lower()
+        s_code = session.get("code", None)
+        session["code"] = None
+        if not all([code, s_code]):
+            return fail_api(msg="参数错误")
+        if code != s_code:
+            return fail_api(msg="验证码错误")
 
-    if not username or not password or not code:
-        return fail_api(msg="用户名或密码没有输入")
-    s_code = session.get("code", None)
-    session["code"] = None
-
-    if not all([code, s_code]):
-        return fail_api(msg="参数错误")
-
-    if code != s_code:
-        return fail_api(msg="验证码错误")
     user = User.query.filter_by(username=username).first()
+    if not username or not password:
+        return fail_api(msg="用户名或密码没有输入")
 
     if not user:
         return fail_api(msg="不存在的用户")
